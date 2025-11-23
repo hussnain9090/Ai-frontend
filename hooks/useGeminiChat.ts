@@ -279,19 +279,31 @@ Text to convert: "${fullInput}"
 
       workletNodeRef.current = new AudioWorkletNode(inputAudioContextRef.current, 'audio-processor');
       workletNodeRef.current.port.onmessage = (event) => {
+        if (!isRecordingRef.current) return;
+
         const inputData = event.data;
         const pcmBlob: Blob = {
           data: encode(new Uint8Array(new Int16Array(inputData.map((x: number) => x * 32768)).buffer)),
           mimeType: 'audio/pcm;rate=16000',
         };
-        sessionPromiseRef.current?.then((session) => {
-          session.sendRealtimeInput({ media: pcmBlob });
-        }).catch(e => {
-          console.error("Failed to send realtime input:", e);
-          // Only trigger error if we are still recording
-          if (isRecordingRef.current) {
-            handleConnectionError();
+
+        sessionPromiseRef.current?.then(async (session) => {
+          try {
+            await session.sendRealtimeInput({ media: pcmBlob });
+          } catch (e: any) {
+            // Ignore errors if we are closing or if the socket is closed
+            if (e.message?.includes('CLOSING') || e.message?.includes('CLOSED')) {
+              console.warn("Attempted to send data to closed socket, ignoring.");
+              return;
+            }
+            console.error("Failed to send realtime input:", e);
+            if (isRecordingRef.current) {
+              handleConnectionError();
+            }
           }
+        }).catch(e => {
+          // Handle session promise rejection
+          console.debug("Session promise rejected:", e);
         });
       };
 
