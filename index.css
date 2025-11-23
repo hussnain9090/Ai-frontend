@@ -1,0 +1,29 @@
+@import "tailwindcss";
+
+/* Custom Scrollbar Styles */
+/* For Webkit-based browsers (Chrome, Safari, Edge) */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #fdf2f8; /* Very light pink */
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #fbcfe8; /* Soft pink-200 */
+  border-radius: 10px;
+  border: 2px solid #fdf2f8; /* Padding effect */
+  transition: background 0.2s ease-in-out;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #f472b6; /* Brighter pink-400 on hover */
+}
+
+/* For Firefox */
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #fbcfe8 #fdf2f8; /* thumb color, track color */
+}

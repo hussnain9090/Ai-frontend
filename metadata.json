@@ -1,0 +1,7 @@
+{
+  "name": "Chuzzi",
+  "description": "A conversational AI web application featuring real-time voice interaction, persistent chat history, and a dynamic, adaptive personality.",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}
