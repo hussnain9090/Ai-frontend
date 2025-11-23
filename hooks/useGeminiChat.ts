@@ -327,9 +327,10 @@ Text to convert: "${fullInput}"
 
     setIsRecording(false);
 
+    // Aggressive cleanup to stop audio processing immediately
     if (workletNodeRef.current) {
+      workletNodeRef.current.port.onmessage = null; // Stop receiving messages immediately
       workletNodeRef.current.disconnect();
-      workletNodeRef.current.port.onmessage = null;
     }
     if (mediaStreamSourceRef.current) {
       mediaStreamSourceRef.current.disconnect();
@@ -338,7 +339,7 @@ Text to convert: "${fullInput}"
       mediaStreamRef.current.getTracks().forEach(track => track.stop());
     }
     if (inputAudioContextRef.current && inputAudioContextRef.current.state !== 'closed') {
-      inputAudioContextRef.current.close().catch(console.error);
+      inputAudioContextRef.current.suspend().catch(console.error); // Suspend context immediately
     }
 
     if (userTranscriptionRef.current.trim() === '') {
