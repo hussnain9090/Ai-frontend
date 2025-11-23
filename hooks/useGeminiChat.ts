@@ -151,7 +151,7 @@ Examples:
 Text to convert: "${fullInput}"
 `;
               const romanUrduResponse = await ai.models.generateContent({
-                model: 'gemini-2.5-flash',
+                model: 'gemini-2.0-flash-exp',
                 contents: conversionPrompt,
               });
               const convertedText = romanUrduResponse.text?.trim();
@@ -222,7 +222,7 @@ Text to convert: "${fullInput}"
     };
 
     sessionPromiseRef.current = ai.live.connect({
-      model: 'gemini-2.5-flash-native-audio-preview-09-2025',
+      model: 'gemini-2.0-flash-exp',
       callbacks,
       config: {
         responseModalities: [Modality.AUDIO],
