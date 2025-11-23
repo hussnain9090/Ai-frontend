@@ -103,7 +103,7 @@ export const useGeminiChat = (
       resetState();
     }
 
-    const apiKey = process.env.API_KEY as string;
+    const apiKey = import.meta.env.VITE_API_KEY as string;
     if (!apiKey || apiKey === 'PLACEHOLDER_API_KEY') {
       setError("Invalid API Key. Please check .env.local");
       return;
