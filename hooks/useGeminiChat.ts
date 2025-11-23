@@ -40,6 +40,7 @@ export const useGeminiChat = (
   const nextStartTimeRef = useRef(0);
   const outputSourcesRef = useRef<Set<AudioBufferSourceNode>>(new Set());
   const retryCountRef = useRef(0);
+  const isConnectedRef = useRef(false);
 
   const resetState = useCallback((clearError = true) => {
     setIsRecording(false);
@@ -58,6 +59,7 @@ export const useGeminiChat = (
   };
 
   const cleanup = useCallback(() => {
+    isConnectedRef.current = false;
     stopAudioPlayback();
 
     if (workletNodeRef.current) {
@@ -113,6 +115,7 @@ export const useGeminiChat = (
     const callbacks = {
       onopen: () => {
         console.log('Session opened.');
+        isConnectedRef.current = true;
         retryCountRef.current = 0; // Reset retries on successful connection
         if (isRetry) setError(null); // Clear reconnecting message
       },
@@ -211,10 +214,12 @@ Text to convert: "${fullInput}"
       },
       onerror: (e: ErrorEvent) => {
         console.error('Session error:', e);
+        isConnectedRef.current = false;
         handleConnectionError();
       },
       onclose: (e: CloseEvent) => {
         console.log('Session closed.');
+        isConnectedRef.current = false;
         if (!error) {
           resetState();
         }
@@ -279,7 +284,7 @@ Text to convert: "${fullInput}"
 
       workletNodeRef.current = new AudioWorkletNode(inputAudioContextRef.current, 'audio-processor');
       workletNodeRef.current.port.onmessage = (event) => {
-        if (!isRecordingRef.current) return;
+        if (!isRecordingRef.current || !isConnectedRef.current) return;
 
         const inputData = event.data;
         const pcmBlob: Blob = {
