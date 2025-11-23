@@ -1,106 +1,150 @@
-# AI Girlfriend - Frontend Client
+# AI Girlfriend - Frontend
 
-This is the frontend React application for the AI Girlfriend app, built with Vite, React, TypeScript, and Tailwind CSS.
+A modern, responsive web interface for the AI Girlfriend application featuring a premium glassmorphism design with real-time chat, voice interaction, and dynamic mood-based responses.
 
-## Features
+## 🔗 Related Repository
 
-- 🎙️ Voice interaction with AI
-- 💬 Real-time chat interface
-- 🎨 Beautiful glassmorphism design
+**Backend Repository**: [hussnain9090/Ai-backend](https://github.com/hussnain9090/Ai-backend) _(Coming soon)_
+
+## ✨ Features
+
+- 💬 Real-time chat interface with typing animations
+- 🎤 Voice input support (Speech-to-Text)
+- 🔊 AI voice responses (Text-to-Speech)
+- 🎨 Premium glassmorphism UI design
+- 🌙 Dark mode support
+- 📱 Fully responsive design
 - 🌐 Multi-language support (English + Roman Urdu)
-- 🧠 Context-aware AI responses
-- 🎭 Multiple AI personas
+- 😊 Mood-based interactions
+- 💾 Conversation memory
 
-## Setup
+## 🚀 Quick Start
 
-1. Install dependencies:
+### Prerequisites
+
+- Node.js (v14 or higher)
+- npm or yarn
+
+### Installation
+
+1. Clone the repository:
+```bash
+git clone https://github.com/hussnain9090/Ai-frontend.git
+cd Ai-frontend
+```
+
+2. Install dependencies:
 ```bash
 npm install
 ```
 
-2. Create a `.env.local` file in the client directory:
-```
-API_KEY=your_gemini_api_key_here
-```
+3. Configure your Google Gemini API key:
+   - Create a `.env.local` file in the root directory
+   - Add your API key: `API_KEY=your_gemini_api_key_here`
 
-3. Run the development server:
+4. Start the development server:
 ```bash
 npm run dev
 ```
 
-The app will be available at `http://localhost:5173`
+The app will open at `http://localhost:5173`
 
-## Build
+## 🔧 Configuration
 
-To create a production build:
-```bash
-npm run build
+### Google Gemini API Setup
+
+This application uses Google Gemini API directly from the frontend for AI chat and voice features.
+
+Create a `.env.local` file in the root directory:
+
+```env
+API_KEY=your_gemini_api_key_here
 ```
 
-The build output will be in the `dist` folder.
+**Get your API key:**
+1. Visit [Google AI Studio](https://makersuite.google.com/app/apikey)
+2. Create a new API key
+3. Add it to your `.env.local` file
 
-## Deployment on Vercel
+### Environment Variables
 
-### Option 1: Using Vercel CLI
+- `API_KEY` - Google Gemini API key (required)
+- `VITE_APP_NAME` - Application name (optional)
 
-1. Install Vercel CLI:
-```bash
-npm install -g vercel
-```
-
-2. Deploy:
-```bash
-vercel
-```
-
-3. Follow the prompts and set your environment variables
-
-### Option 2: Using Vercel Dashboard
-
-1. Push your code to GitHub
-2. Go to [Vercel](https://vercel.com)
-3. Click "New Project"
-4. Import your GitHub repository
-5. Set the following:
-   - **Framework Preset**: Vite
-   - **Root Directory**: `client`
-   - **Build Command**: `npm run build`
-   - **Output Directory**: `dist`
-   - **Environment Variables**: Add `API_KEY` with your Gemini API key
-6. Deploy!
-
-### Important: Environment Variables
-
-Make sure to add the following environment variable in Vercel:
-- `API_KEY` - Your Google Gemini API key
-
-## Project Structure
+## 📁 Project Structure
 
 ```
 client/
-├── components/       # React components
-├── contexts/        # React contexts
-├── hooks/           # Custom React hooks
-├── services/        # Utility services
-├── public/          # Static assets
-├── App.tsx          # Main app component
-├── index.tsx        # Entry point
-├── index.css        # Global styles
-├── personas.ts      # AI personality configurations
-└── types.ts         # TypeScript type definitions
+├── src/
+│   ├── App.tsx                    # Main application component
+│   ├── index.tsx                  # Entry point
+│   ├── types.ts                   # TypeScript type definitions
+│   ├── personas.ts                # AI personality configurations
+│   ├── components/                # React components
+│   │   ├── ChatBubble.tsx
+│   │   ├── RecordButton.tsx
+│   │   ├── PersonaSwitcher.tsx
+│   │   └── ...
+│   ├── hooks/                     # Custom React hooks
+│   │   └── useGeminiChat.ts      # Gemini API integration
+│   ├── contexts/                  # React contexts
+│   │   └── ChatContext.tsx
+│   └── services/                  # Utility services
+│       └── audioUtils.ts
+├── public/                        # Static assets
+├── package.json                   # Dependencies
+├── vite.config.ts                 # Vite configuration
+└── README.md                      # This file
 ```
 
-## Technologies Used
+## 🌐 Deployment
 
-- **React 19** - UI library
-- **TypeScript** - Type safety
-- **Vite** - Build tool
-- **Tailwind CSS** - Styling
-- **Google Gemini AI** - AI model
-- **Web Audio API** - Voice processing
+### Deploy to Vercel
 
-## Notes
+```bash
+npm install -g vercel
+vercel
+```
 
-- The app uses the Gemini Live API for real-time voice interactions
-- Make sure your browser supports the Web Audio API
-- Microphone permissions are required for voice features
+### Deploy to Netlify
+
+```bash
+npm install -g netlify-cli
+netlify deploy
+```
+
+### Deploy to GitHub Pages
+
+1. Update `package.json` with homepage URL
+2. Run: `npm run build`
+3. Deploy the `dist` folder to GitHub Pages
+
+## 🔒 Security Notes
+
+- Never commit API keys or sensitive data
+- Use environment variables for configuration
+- Enable CORS properly on the backend
+- Use HTTPS in production
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Commit your changes
+4. Push to the branch
+5. Open a Pull Request
+
+## 📄 License
+
+[Your License Here]
+
+## 🐛 Known Issues
+
+- Voice input requires HTTPS in production
+- Some browsers may require user interaction before playing audio
+
+## 📞 Support
+
+For issues related to:
+- **Frontend/UI**: Open an issue in this repository
+- **Backend/API**: Open an issue in the backend repository
